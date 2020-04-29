@@ -95,7 +95,15 @@ main() {
     local no_log_errors no_check_errors disable_errors do_fast check_tmpfs
     local save_mode jbb_mode
 
-    local script_dir=$(dirname $(readlink -f $0))
+	# Dedicate the "working" directory ($script_dir) to the artifacts
+	# of the ISO building process
+    local script_dir=$PWD/working
+    mkdir -p $script_dir
+    cp -R Input $script_dir/Input
+    cp -R Template $script_dir/Template
+    cp -R Themes $script_dir/Themes
+    cp -R Tools $script_dir/Tools
+
     local template=$script_dir/Template
     local tools=$script_dir/Tools
     local output_dir=$script_dir/Output
